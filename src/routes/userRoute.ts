@@ -1,25 +1,23 @@
-import {User} from "./../entity/User";
+import {getUsers} from "./../controllers/user/getUsersController";
 import express from "express";
-import {db} from "../data-source";
-import {signupUser} from "../controllers/user/signup";
+import {signupUser} from "../controllers/user/signupController";
+import {authUser} from "../controllers/user/authController";
+import {check} from "express-validator";
+import {authMiddleware} from "../middlewares/authMiddleware";
 
 export const userRouter = express.Router();
 
-userRouter.route("/").get(async (req, res) => {
-  const users = await db.manager.find(User);
+userRouter.route("/").get(authMiddleware, getUsers);
 
-  res.json(users);
-});
-
-userRouter.route("/signup").post(signupUser);
-
-userRouter.route("/").post(async (req, res) => {
-  const {email, password} = req.body;
-  const user = new User();
-  user.email = email;
-  user.password = password;
-
-  db.manager.save(user);
-
-  res.json(user);
-});
+userRouter
+  .route("/signup")
+  .post(
+    [
+      check("first_name", "Cannot be empty").notEmpty(),
+      check("last_name", "Cannot be empty").notEmpty(),
+      check("email", "Must be an email").isEmail(),
+      check("password", "Must be at least 6 symbols").isLength({min: 6}),
+    ],
+    signupUser
+  );
+userRouter.route("/auth").post(authMiddleware, authUser);

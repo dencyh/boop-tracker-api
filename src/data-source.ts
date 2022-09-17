@@ -1,3 +1,6 @@
+import {Comment} from "./entity/Comment";
+import {Project} from "./entity/Project";
+import {Bug} from "./entity/Bug";
 import "reflect-metadata";
 import {DataSource} from "typeorm";
 import {User} from "./entity/User";
@@ -11,7 +14,7 @@ export const db = new DataSource({
   database: "boop-tracker",
   synchronize: true,
   logging: false,
-  entities: [User],
+  entities: [User, Bug, Project, Comment],
   migrations: [],
   subscribers: [],
 });
