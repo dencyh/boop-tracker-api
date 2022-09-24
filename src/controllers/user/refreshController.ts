@@ -7,6 +7,7 @@ import {User} from "../../entity/User";
 
 export const refresh = async (req, res, next) => {
   try {
+
     const {refreshToken} = req.cookies;
     if (!refreshToken) {
       throw ApiError.UnauthorizedError();
@@ -24,6 +25,11 @@ export const refresh = async (req, res, next) => {
 
     const tokens = generateToken(tokenFromDb.user.id);
     await saveToken(user.id, tokens.refreshToken);
+
+    res.cookie("refreshToken", tokens.refreshToken, {
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+      httpOnly: true
+    });
     res.json({tokens, user});
   } catch (e) {
     console.log(e);
