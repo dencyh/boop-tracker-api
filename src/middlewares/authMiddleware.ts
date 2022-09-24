@@ -1,5 +1,7 @@
-import {db} from "./../data-source";
 import jwt from "jsonwebtoken";
+
+import {db} from "./../data-source";
+import {ApiError} from "../errros/ApiError";
 
 export const authMiddleware = async (req, res, next) => {
   try {
@@ -9,30 +11,20 @@ export const authMiddleware = async (req, res, next) => {
       token = req.headers.authorization.split(" ")[1];
 
       if (!token) {
-        res.status(403).json({message: "Not authorized"});
-        throw new Error("Not authorized");
+        return next(ApiError.UnauthorizedError());
       }
 
       const decoded = jwt.verify(token, process.env.ACCESS_TOKEN);
+      if (!decoded) {
+        return next(ApiError.UnauthorizedError());
+      }
       req.user = decoded;
       next();
-
-      // const userFound = await db.manager.findOneBy(User, {
-      //   id: decoded,
-      // });
-
-      // if (userFound) {
-      //   req.user = userFound;
-      //   next();
-      // } else {
-      //   res.status(401);
-      //   throw new Error("Not authorized. Invalid token");
-      // }
     } else {
-      res.status(403).json({message: "Not authorized"});
+      return next(ApiError.UnauthorizedError());
     }
-  } catch (error) {
-    console.log(error);
-    return res.status(403).json({message: "Not authorized"});
+  } catch (e) {
+    console.log(e);
+    next(ApiError.UnauthorizedError());
   }
 };

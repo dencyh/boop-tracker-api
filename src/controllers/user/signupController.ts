@@ -1,41 +1,56 @@
-import {generateToken} from "../../helpers/generateToken";
-import {User} from "../../entity/User";
-import {db} from "../../data-source";
-import bcrypt from "bcrypt";
-import {validationResult} from "express-validator";
+import bcrypt from 'bcrypt';
+import { validationResult } from 'express-validator';
+import { v4 as uuid } from 'uuid';
 
-export const signupUser = async (req, res, next) => {
-  try {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({message: "An error occured while singup", errors});
-    }
+import { db } from '../../data-source';
+import { User } from '../../entity/User';
+import { ApiError } from '../../errros/ApiError';
+import { generateToken, saveToken } from '../../helpers/tokenHelper';
 
-    const {first_name, last_name, email, password} = req.body;
+const sendConfirmationEmail =
+	require('../../helpers/sendConfirmationEmail.ts').sendConfirmationEmail;
 
-    const userExists = await db.manager.findOneBy(User, {
-      email,
-    });
+export const signUp = async (req, res, next) => {
+	try {
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			return next(ApiError.BadRequest('Validation error', errors.array()));
+		}
 
-    if (userExists) {
-      res.status(400).json({message: "An account with this email address already exists."});
-      throw new Error("An account with this email address already exists.");
-    }
+		const { first_name, last_name, email, password } = req.body;
 
-    const user = new User();
+		const userExists = await db.manager.findOneBy(User, {
+			email,
+		});
 
-    user.email = email;
-    user.password = bcrypt.hashSync(password, 5);
-    user.first_name = first_name;
-    user.last_name = last_name;
+		if (userExists) {
+			throw ApiError.BadRequest(
+				'An account with this email address already exists.'
+			);
+		}
 
-    const newUser = await db.manager.save(user);
-    console.log(newUser);
+		const user = new User();
 
-    const token = generateToken(newUser.id);
+		user.email = email;
+		user.password = bcrypt.hashSync(password, 5);
+		user.first_name = first_name;
+		user.last_name = last_name;
 
-    res.json({newUser, token});
-  } catch (err) {
-    console.error(err);
-  }
+		user.confirmation_link = uuid();
+
+		const newUser = await db.manager.save(user);
+		await sendConfirmationEmail(newUser);
+
+		const tokens = generateToken(newUser.id);
+		await saveToken(newUser.id, tokens.refreshToken);
+
+		res.cookie('refreshToken', tokens.refreshToken, {
+			maxAge: 30 * 24 * 60 * 60 * 1000,
+			httpOnly: true,
+		});
+
+		res.json({ newUser, tokens });
+	} catch (err) {
+		next(err);
+	}
 };

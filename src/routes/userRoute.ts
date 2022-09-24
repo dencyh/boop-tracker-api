@@ -1,23 +1,28 @@
-import {getUsers} from "./../controllers/user/getUsersController";
 import express from "express";
-import {signupUser} from "../controllers/user/signupController";
-import {authUser} from "../controllers/user/authController";
-import {check} from "express-validator";
+import {body, check} from "express-validator";
+
+import {emailController} from "../controllers/user/emailController";
+import {signIn} from "../controllers/user/signInController";
+import {signOut} from "../controllers/user/signOutController";
+import {signUp} from "../controllers/user/signUpController";
+import {refresh} from "../controllers/user/refreshController";
 import {authMiddleware} from "../middlewares/authMiddleware";
+
+import {getUsers} from "./../controllers/user/getUsersController";
 
 export const userRouter = express.Router();
 
-userRouter.route("/").get(authMiddleware, getUsers);
-
+userRouter.route("/users").get(authMiddleware, getUsers);
 userRouter
   .route("/signup")
   .post(
-    [
-      check("first_name", "Cannot be empty").notEmpty(),
-      check("last_name", "Cannot be empty").notEmpty(),
-      check("email", "Must be an email").isEmail(),
-      check("password", "Must be at least 6 symbols").isLength({min: 6}),
-    ],
-    signupUser
+    body("first_name", "Cannot be empty").notEmpty(),
+    body("last_name", "Cannot be empty").notEmpty(),
+    body("email", "Must be an email").isEmail(),
+    body("password", "Must be at least 6 symbols").isLength({min: 6}),
+    signUp
   );
-userRouter.route("/auth").post(authMiddleware, authUser);
+userRouter.route("/signin").post(signIn);
+userRouter.route("/signout").post(signOut);
+userRouter.route("/refresh").get(refresh);
+userRouter.route("/confirm/:link").get(emailController);

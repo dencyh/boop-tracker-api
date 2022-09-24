@@ -11,8 +11,10 @@ import {
   ManyToMany,
   JoinColumn,
   JoinTable,
+  OneToOne,
 } from "typeorm";
 import {IsEmail, Length} from "class-validator";
+import { Token } from "./Token";
 
 @Entity()
 export class User {
@@ -34,6 +36,16 @@ export class User {
   @Column()
   @Length(6, 100)
   password: string;
+  
+  @Column({
+    default: false
+  })
+  email_confirmed: boolean
+  
+  @Column({
+    default: "",
+  })
+  confirmation_link: string;
 
   @CreateDateColumn()
   created_at: Date;
@@ -60,4 +72,6 @@ export class User {
     },
   })
   projects: Project[];
+  
+
 }

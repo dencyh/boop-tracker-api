@@ -5,7 +5,6 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToMany,
-  JoinTable,
   OneToMany,
 } from "typeorm";
 import {Bug} from "./Bug";
