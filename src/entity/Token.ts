@@ -3,9 +3,9 @@ import {
   PrimaryGeneratedColumn,
   Column,
   JoinColumn,
-  OneToOne
+  OneToOne,
 } from "typeorm";
-import {User} from "./User";
+import { User } from "./User";
 
 @Entity()
 export class Token {
@@ -13,14 +13,14 @@ export class Token {
   id: number;
 
   @Column({
-    nullable: false
+    nullable: false,
   })
   refreshToken: string;
 
-  @OneToOne(() => User, {eager: true})
+  @OneToOne(() => User, { eager: true })
   @JoinColumn({
     name: "user_id",
-    referencedColumnName: "id"
+    referencedColumnName: "id",
   })
   user: User;
 }

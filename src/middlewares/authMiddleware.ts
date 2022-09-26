@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
-import {db} from "./../data-source";
-import {ApiError} from "../errros/ApiError";
+import { db } from "./../data-source";
+import { ApiError } from "../errros/ApiError";
 
 export const authMiddleware = async (req, res, next) => {
   try {

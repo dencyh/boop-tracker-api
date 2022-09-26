@@ -7,8 +7,8 @@ import {
   ManyToMany,
   OneToMany,
 } from "typeorm";
-import {Bug} from "./Bug";
-import {User} from "./User";
+import { Bug } from "./Bug";
+import { User } from "./User";
 
 @Entity()
 export class Project {

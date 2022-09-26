@@ -1,4 +1,4 @@
-import {Project} from "./Project";
+import { Project } from "./Project";
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -9,8 +9,8 @@ import {
   JoinColumn,
   OneToMany,
 } from "typeorm";
-import {Comment} from "./Comment";
-import {User} from "./User";
+import { Comment } from "./Comment";
+import { User } from "./User";
 
 @Entity()
 export class Bug {

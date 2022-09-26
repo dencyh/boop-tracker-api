@@ -1,9 +1,9 @@
-import bcrypt from 'bcrypt';
+import bcrypt from "bcrypt";
 
-import { db } from '../../data-source';
-import { User } from '../../entity/User';
-import { ApiError } from '../../errros/ApiError';
-import { generateToken, saveToken } from '../../helpers/tokenHelper';
+import { db } from "../../data-source";
+import { User } from "../../entity/User";
+import { ApiError } from "../../errros/ApiError";
+import { generateToken, saveToken } from "../../helpers/tokenHelper";
 
 export const signIn = async (req, res, next) => {
   try {
@@ -16,12 +16,12 @@ export const signIn = async (req, res, next) => {
 
     const validPassword = bcrypt.compareSync(password, user.password);
     if (!validPassword) {
-      throw ApiError.BadRequest('Wrong password');
+      throw ApiError.BadRequest("Wrong password");
     }
     const tokens = generateToken(user.id);
     await saveToken(user.id, tokens.refreshToken);
 
-    res.cookie('refreshToken', tokens.refreshToken, {
+    res.cookie("refreshToken", tokens.refreshToken, {
       maxAge: 30 * 24 * 60 * 60 * 1000,
       httpOnly: true,
     });

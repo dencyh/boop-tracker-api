@@ -1,6 +1,6 @@
-import {Bug} from "./Bug";
-import {Comment} from "./Comment";
-import {Project} from "./Project";
+import { Bug } from "./Bug";
+import { Comment } from "./Comment";
+import { Project } from "./Project";
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -13,7 +13,7 @@ import {
   JoinTable,
   OneToOne,
 } from "typeorm";
-import {IsEmail, Length} from "class-validator";
+import { IsEmail, Length } from "class-validator";
 import { Token } from "./Token";
 
 @Entity()
@@ -36,12 +36,12 @@ export class User {
   @Column()
   @Length(6, 100)
   password: string;
-  
+
   @Column({
-    default: false
+    default: false,
   })
-  email_confirmed: boolean
-  
+  email_confirmed: boolean;
+
   @Column({
     default: "",
   })
@@ -72,6 +72,4 @@ export class User {
     },
   })
   projects: Project[];
-  
-
 }

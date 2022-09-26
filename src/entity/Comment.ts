@@ -1,5 +1,5 @@
-import {Bug} from "./Bug";
-import {User} from "./User";
+import { Bug } from "./Bug";
+import { User } from "./User";
 import {
   Entity,
   PrimaryGeneratedColumn,
