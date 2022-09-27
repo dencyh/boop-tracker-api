@@ -29,7 +29,7 @@ export const removeToken = async (refreshToken) => {
 
 export const generateToken = (userId: number) => {
   const accessToken = jwt.sign({ userId }, process.env.ACCESS_TOKEN, {
-    expiresIn: "15m",
+    expiresIn: "10d",
   });
 
   const refreshToken = jwt.sign({ userId }, process.env.REFRESH_TOKEN, {

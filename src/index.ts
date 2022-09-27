@@ -1,3 +1,4 @@
+import { projectRouter } from "./routes/projectRoute";
 import cookies from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -28,6 +29,7 @@ const main = async () => {
     );
 
     app.use("/api", userRouter);
+    app.use("/api", projectRouter);
 
     app.use(errorHandler);
     app.listen(PORT, () => {

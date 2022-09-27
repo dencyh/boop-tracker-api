@@ -12,6 +12,7 @@ import {
   JoinColumn,
   JoinTable,
   OneToOne,
+  ManyToOne,
 } from "typeorm";
 import { IsEmail, Length } from "class-validator";
 import { Token } from "./Token";
@@ -59,17 +60,23 @@ export class User {
   @OneToMany(() => Bug, (bug) => bug.user)
   bugs: Bug[];
 
+  @OneToMany(() => Project, (project) => project.created_by)
+  created_projects: Project[];
+
   @ManyToMany(() => Project)
-  @JoinTable({
-    name: "users_projects",
-    joinColumn: {
-      name: "user",
-      referencedColumnName: "id",
-    },
-    inverseJoinColumn: {
-      name: "project",
-      referencedColumnName: "id",
-    },
-  })
-  projects: Project[];
+  @JoinTable()
+  tracking_projects: Project[];
+  // @ManyToMany(() => Project)
+  // @JoinTable({
+  //   name: "users_projects",
+  //   joinColumn: {
+  //     name: "user",
+  //     referencedColumnName: "id",
+  //   },
+  //   inverseJoinColumn: {
+  //     name: "project",
+  //     referencedColumnName: "id",
+  //   },
+  // })
+  // tracking_projects: Project[];
 }

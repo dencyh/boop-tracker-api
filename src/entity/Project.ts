@@ -6,6 +6,8 @@ import {
   UpdateDateColumn,
   ManyToMany,
   OneToMany,
+  JoinColumn,
+  ManyToOne,
 } from "typeorm";
 import { Bug } from "./Bug";
 import { User } from "./User";
@@ -21,15 +23,20 @@ export class Project {
   @Column()
   description: string;
 
+  @Column({
+    default: false,
+  })
+  finished: boolean;
+
   @CreateDateColumn()
   created_at: Date;
 
   @UpdateDateColumn()
   updated_at: Date;
 
-  @ManyToMany(() => User)
-  users: User[];
-
   @OneToMany(() => Bug, (bug) => bug.project)
   bugs: Bug[];
+
+  @ManyToOne(() => User, (user) => user.created_projects)
+  created_by: User;
 }
