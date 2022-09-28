@@ -8,6 +8,7 @@ import {
   OneToMany,
   JoinColumn,
   ManyToOne,
+  JoinTable,
 } from "typeorm";
 import { Bug } from "./Bug";
 import { User } from "./User";
@@ -39,4 +40,8 @@ export class Project {
 
   @ManyToOne(() => User, (user) => user.created_projects)
   created_by: User;
+
+  @ManyToMany(() => User)
+  @JoinTable()
+  viewers: User[];
 }

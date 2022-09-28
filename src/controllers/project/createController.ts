@@ -1,9 +1,11 @@
 import jwt from "jsonwebtoken";
+import { In } from "typeorm";
 import { db } from "../../data-source";
 import { Project } from "../../entity/Project";
 import { Token } from "../../entity/Token";
 import { User } from "../../entity/User";
 import { ApiError } from "./../../errros/ApiError";
+
 export const createController = async (req, res, next) => {
   try {
     const { refreshToken } = req.cookies;
@@ -15,7 +17,7 @@ export const createController = async (req, res, next) => {
       throw ApiError.UnauthorizedError();
     }
 
-    const { title, description } = req.body;
+    const { title, description, finished, usersToGiveAccessTo } = req.body;
 
     // Get user by refreshtoken
     const tokenFromDb = await db.manager.findOneBy(Token, { refreshToken });
@@ -23,22 +25,20 @@ export const createController = async (req, res, next) => {
     const userRepo = db.getRepository(User);
     const user = await userRepo.findOne({
       where: { id: tokenFromDb.user.id },
-      relations: {
-        tracking_projects: true,
-      },
+    });
+
+    const newViewers = await userRepo.findBy({
+      id: In([...usersToGiveAccessTo]),
     });
 
     const project = db.manager.create(Project, {
       title,
       description,
+      finished,
       created_by: user,
+      viewers: [...newViewers, user],
     });
 
-    user.tracking_projects = user.tracking_projects[0]
-      ? [...user.tracking_projects, project]
-      : [project];
-
-    console.log(user);
     await db.manager.save(project);
     await db.manager.save(user);
 

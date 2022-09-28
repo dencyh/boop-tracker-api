@@ -63,9 +63,6 @@ export class User {
   @OneToMany(() => Project, (project) => project.created_by)
   created_projects: Project[];
 
-  @ManyToMany(() => Project)
-  @JoinTable()
-  tracking_projects: Project[];
   // @ManyToMany(() => Project)
   // @JoinTable({
   //   name: "users_projects",
