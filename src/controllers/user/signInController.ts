@@ -11,12 +11,12 @@ export const signIn = async (req, res, next) => {
     const user = await db.manager.findOneBy(User, { email });
 
     if (!user) {
-      throw ApiError.BadRequest("Couldn't find an account matching the email");
+      throw ApiError.BadRequest("email not found");
     }
 
     const validPassword = bcrypt.compareSync(password, user.password);
     if (!validPassword) {
-      throw ApiError.BadRequest("Wrong password");
+      throw ApiError.BadRequest("wrong password");
     }
     const tokens = generateToken(user.id);
     await saveToken(user.id, tokens.refreshToken);
@@ -28,7 +28,7 @@ export const signIn = async (req, res, next) => {
 
     return res.json({ tokens, user });
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     next(err);
   }
 };

@@ -24,9 +24,7 @@ export const signUp = async (req, res, next) => {
     });
 
     if (userExists) {
-      throw ApiError.BadRequest(
-        "An account with this email address already exists."
-      );
+      throw ApiError.BadRequest("email already used");
     }
 
     const user = new User();
