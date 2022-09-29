@@ -25,10 +25,9 @@ export const createController = async (req, res, next) => {
     const userRepo = db.getRepository(User);
     const user = await userRepo.findOne({
       where: { id: tokenFromDb.user.id },
-    });
-
-    const newViewers = await userRepo.findBy({
-      id: In([...usersToGiveAccessTo]),
+      relations: {
+        tracking_projects: true,
+      },
     });
 
     const project = db.manager.create(Project, {
@@ -36,11 +35,24 @@ export const createController = async (req, res, next) => {
       description,
       finished,
       created_by: user,
-      viewers: [...newViewers, user],
     });
 
     await db.manager.save(project);
-    await db.manager.save(user);
+
+    const newViewers = (
+      await userRepo.find({
+        where: {
+          id: In([...usersToGiveAccessTo]),
+        },
+        relations: {
+          tracking_projects: true,
+        },
+      })
+    ).concat(user);
+    newViewers.forEach(async (viewer) => {
+      viewer.tracking_projects = [...(viewer.tracking_projects || []), project];
+      await db.manager.save(viewer);
+    });
 
     res.json({ project, user });
   } catch (e) {

@@ -40,8 +40,4 @@ export class Project {
 
   @ManyToOne(() => User, (user) => user.created_projects)
   created_by: User;
-
-  @ManyToMany(() => User)
-  @JoinTable()
-  viewers: User[];
 }
