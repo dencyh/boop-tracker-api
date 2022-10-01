@@ -27,7 +27,7 @@ export class Project {
   @Column({
     default: false,
   })
-  finished: boolean;
+  closed: boolean;
 
   @CreateDateColumn()
   created_at: Date;

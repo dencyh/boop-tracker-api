@@ -17,7 +17,15 @@ export const createController = async (req, res, next) => {
       throw ApiError.UnauthorizedError();
     }
 
-    const { title, description, finished, usersToGiveAccessTo } = req.body;
+    console.log(req.body);
+
+    const {
+      title,
+      description,
+      closed,
+      viewers: usersToGiveAccessTo,
+    } = req.body;
+    console.log(usersToGiveAccessTo);
 
     // Get user by refreshtoken
     const tokenFromDb = await db.manager.findOneBy(Token, { refreshToken });
@@ -33,7 +41,7 @@ export const createController = async (req, res, next) => {
     const project = db.manager.create(Project, {
       title,
       description,
-      finished,
+      closed,
       created_by: user,
     });
 
