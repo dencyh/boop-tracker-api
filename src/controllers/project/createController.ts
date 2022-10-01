@@ -47,17 +47,20 @@ export const createController = async (req, res, next) => {
 
     await db.manager.save(project);
 
-    const newViewers = (
-      await userRepo.find({
-        where: {
-          id: In([...usersToGiveAccessTo]),
-        },
-        relations: {
-          tracking_projects: true,
-        },
-      })
-    ).concat(user);
-    newViewers.forEach(async (viewer) => {
+    const newViewers = await userRepo.find({
+      where: {
+        id: In([...usersToGiveAccessTo]),
+      },
+      relations: {
+        tracking_projects: true,
+      },
+    });
+
+    const allViewers = newViewers
+      .filter((viewer: User) => viewer.id !== user.id)
+      .concat(user);
+
+    allViewers.forEach(async (viewer) => {
       viewer.tracking_projects = [...(viewer.tracking_projects || []), project];
       await db.manager.save(viewer);
     });
