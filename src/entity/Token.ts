@@ -18,9 +18,6 @@ export class Token {
   refreshToken: string;
 
   @OneToOne(() => User, { eager: true })
-  @JoinColumn({
-    name: "user_id",
-    referencedColumnName: "id",
-  })
+  @JoinColumn()
   user: User;
 }

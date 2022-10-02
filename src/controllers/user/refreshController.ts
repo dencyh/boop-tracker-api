@@ -23,7 +23,7 @@ export const refresh = async (req, res, next) => {
     const user = await db.manager.findOneBy(User, { id: tokenFromDb.user.id });
 
     const tokens = generateToken(tokenFromDb.user.id);
-    await saveToken(user.id, tokens.refreshToken);
+    await saveToken(user, tokens.refreshToken);
 
     res.cookie("refreshToken", tokens.refreshToken, {
       maxAge: 30 * 24 * 60 * 60 * 1000,

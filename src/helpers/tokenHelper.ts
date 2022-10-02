@@ -1,12 +1,20 @@
 import jwt from "jsonwebtoken";
+import { User } from "../entity/User";
 
 import { db } from "./../data-source";
 import { Token } from "./../entity/Token";
 
-export const saveToken = async (userId, refreshToken) => {
+export const saveToken = async (user: User, refreshToken: string) => {
   const tokenRepo = db.getRepository(Token);
   const tokenFound = await tokenRepo.findOne({
-    where: { user: userId },
+    relations: {
+      user: true,
+    },
+    where: {
+      user: {
+        id: user.id,
+      },
+    },
   });
   if (tokenFound) {
     await db.manager.update(Token, tokenFound.id, { refreshToken });
@@ -15,7 +23,7 @@ export const saveToken = async (userId, refreshToken) => {
   }
   const token = new Token();
   token.refreshToken = refreshToken;
-  token.user = userId;
+  token.user = user;
 
   const newToken = await db.manager.save(token);
   return newToken;

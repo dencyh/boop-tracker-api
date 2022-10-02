@@ -40,7 +40,7 @@ export const signUp = async (req, res, next) => {
     await sendConfirmationEmail(newUser);
 
     const tokens = generateToken(newUser.id);
-    await saveToken(newUser.id, tokens.refreshToken);
+    await saveToken(newUser, tokens.refreshToken);
 
     res.cookie("refreshToken", tokens.refreshToken, {
       maxAge: 30 * 24 * 60 * 60 * 1000,
