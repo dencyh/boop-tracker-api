@@ -4,7 +4,7 @@ import { db } from "../../data-source";
 import { Project } from "../../entity/Project";
 import { Token } from "../../entity/Token";
 import { User } from "../../entity/User";
-import { ApiError } from "./../../errros/ApiError";
+import { ApiError } from "../../errros/ApiError";
 
 export const createController = async (req, res, next) => {
   try {
@@ -17,15 +17,12 @@ export const createController = async (req, res, next) => {
       throw ApiError.UnauthorizedError();
     }
 
-    console.log(req.body);
-
     const {
       title,
       description,
       closed,
       viewers: usersToGiveAccessTo,
     } = req.body;
-    console.log(usersToGiveAccessTo);
 
     // Get user by refreshtoken
     const tokenFromDb = await db.manager.findOneBy(Token, { refreshToken });

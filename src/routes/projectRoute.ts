@@ -1,6 +1,6 @@
 import { getTrackingProjects } from "../controllers/project/getTrackingProjectsController";
 import express from "express";
-import { createController } from "../controllers/project/createController";
+import { createController } from "../controllers/project/createProject";
 import { authMiddleware } from "../middlewares/authMiddleware";
 
 export const projectRouter = express.Router();

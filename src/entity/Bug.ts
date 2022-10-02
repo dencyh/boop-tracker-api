@@ -8,6 +8,8 @@ import {
   ManyToOne,
   JoinColumn,
   OneToMany,
+  ManyToMany,
+  JoinTable,
 } from "typeorm";
 import { Comment } from "./Comment";
 import { User } from "./User";
@@ -32,20 +34,21 @@ export class Bug {
   @Column()
   due: Date;
 
-  @Column()
-  assigned_to: number;
-
   @CreateDateColumn()
   created_at: Date;
 
   @UpdateDateColumn()
   updated_at: Date;
 
-  @ManyToOne(() => User, (user) => user.bugs)
+  @ManyToMany(() => User)
+  @JoinTable()
+  assigned_to: User[];
+
+  @ManyToOne(() => User, (user) => user.created_bugs)
   @JoinColumn({
-    name: "user_id",
+    name: "created_by",
   })
-  user: User;
+  created_by: User;
 
   @ManyToOne(() => Project, (project) => project.bugs)
   @JoinColumn({

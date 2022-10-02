@@ -1,3 +1,4 @@
+import { bugRouter } from "./routes/bugRoute";
 import { projectRouter } from "./routes/projectRoute";
 import cookies from "cookie-parser";
 import cors from "cors";
@@ -30,6 +31,7 @@ const main = async () => {
 
     app.use("/api", userRouter);
     app.use("/api", projectRouter);
+    app.use("/api", bugRouter);
 
     app.use(errorHandler);
     app.listen(PORT, () => {

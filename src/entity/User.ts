@@ -57,8 +57,8 @@ export class User {
   @OneToMany(() => Comment, (comment) => comment.user)
   comments: Comment[];
 
-  @OneToMany(() => Bug, (bug) => bug.user)
-  bugs: Bug[];
+  @OneToMany(() => Bug, (bug) => bug.created_by)
+  created_bugs: Bug[];
 
   @OneToMany(() => Project, (project) => project.created_by)
   created_projects: Project[];

@@ -4,11 +4,8 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToMany,
   OneToMany,
-  JoinColumn,
   ManyToOne,
-  JoinTable,
 } from "typeorm";
 import { Bug } from "./Bug";
 import { User } from "./User";
