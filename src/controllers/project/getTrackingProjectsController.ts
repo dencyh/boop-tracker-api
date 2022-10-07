@@ -35,7 +35,9 @@ export const getTrackingProjects = async (req, res, next) => {
         id: In(projectIds),
       },
       relations: {
-        bugs: true,
+        bugs: {
+          created_by: true,
+        },
       },
     });
 
