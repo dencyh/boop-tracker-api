@@ -25,8 +25,6 @@ export const getTrackingProjects = async (req, res, next) => {
       },
     });
 
-    console.log(user);
-
     const projectIds = user.tracking_projects.map((project) => project.id);
 
     const projectRepo = db.manager.getRepository(Project);
