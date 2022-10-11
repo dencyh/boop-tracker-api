@@ -6,7 +6,7 @@ export const updateBug = async (req, res, next) => {
   try {
     const { id } = req.params;
     if (!id) {
-      throw ApiError.BadRequest("wrong id");
+      throw ApiError.BadRequest("wrong bug id");
     }
     const { field, newValue } = req.body;
 
