@@ -23,7 +23,9 @@ export const getBug = async (req, res, next) => {
         project: true,
         assigned_to: true,
         created_by: true,
-        comments: true,
+        comments: {
+          user: true,
+        },
       },
     });
 

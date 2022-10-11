@@ -56,6 +56,6 @@ export class Bug {
   })
   project: Project;
 
-  @OneToMany(() => Comment, (comment) => comment.user)
+  @OneToMany(() => Comment, (comment) => comment.bug)
   comments: Comment[];
 }

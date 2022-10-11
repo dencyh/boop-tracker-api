@@ -16,10 +16,7 @@ export class Comment {
   id: number;
 
   @Column()
-  title: string;
-
-  @Column()
-  description: string;
+  text: string;
 
   @CreateDateColumn()
   created_at: Date;
@@ -28,14 +25,10 @@ export class Comment {
   updated_at: Date;
 
   @ManyToOne(() => User, (user) => user.comments)
-  @JoinColumn({
-    name: "user_id",
-  })
+  @JoinColumn()
   user: User;
 
   @ManyToOne(() => Bug, (bug) => bug.comments)
-  @JoinColumn({
-    name: "bug_id",
-  })
+  @JoinColumn()
   bug: Bug;
 }

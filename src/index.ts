@@ -1,3 +1,4 @@
+import { commentRouter } from "./routes/commentRoute";
 import { bugRouter } from "./routes/bugRoute";
 import { projectRouter } from "./routes/projectRoute";
 import cookies from "cookie-parser";
@@ -32,6 +33,7 @@ const main = async () => {
     app.use("/api", userRouter);
     app.use("/api", projectRouter);
     app.use("/api", bugRouter);
+    app.use("/api", commentRouter);
 
     app.use(errorHandler);
     app.listen(PORT, () => {
