@@ -35,20 +35,20 @@ export class Bug {
   due: Date;
 
   @CreateDateColumn()
-  created_at: Date;
+  createdAt: Date;
 
   @UpdateDateColumn()
-  updated_at: Date;
+  updatedAt: Date;
 
   @ManyToMany(() => User)
   @JoinTable()
-  assigned_to: User[];
+  assignedTo: User[];
 
-  @ManyToOne(() => User, (user) => user.created_bugs)
+  @ManyToOne(() => User, (user) => user.createdBugs)
   @JoinColumn({
-    name: "created_by",
+    name: "createdBy",
   })
-  created_by: User;
+  createdBy: User;
 
   @ManyToOne(() => Project, (project) => project.bugs)
   @JoinColumn({

@@ -23,10 +23,10 @@ export class User {
   id: number;
 
   @Column({})
-  first_name: string;
+  firstName: string;
 
   @Column({})
-  last_name: string;
+  lastName: string;
 
   @Column({
     unique: true,
@@ -41,43 +41,29 @@ export class User {
   @Column({
     default: false,
   })
-  email_confirmed: boolean;
+  emailConfirmed: boolean;
 
   @Column({
     default: "",
   })
-  confirmation_link: string;
+  confirmationLink: string;
 
   @CreateDateColumn()
-  created_at: Date;
+  createdAt: Date;
 
   @UpdateDateColumn()
-  updated_at: Date;
+  updatedAt: Date;
 
   @OneToMany(() => Comment, (comment) => comment.user)
   comments: Comment[];
 
-  @OneToMany(() => Bug, (bug) => bug.created_by)
-  created_bugs: Bug[];
+  @OneToMany(() => Bug, (bug) => bug.createdBy)
+  createdBugs: Bug[];
 
-  @OneToMany(() => Project, (project) => project.created_by)
-  created_projects: Project[];
+  @OneToMany(() => Project, (project) => project.createdBy)
+  createdProjects: Project[];
 
   @ManyToMany(() => Project)
   @JoinTable()
-  tracking_projects: Project[];
-
-  // @ManyToMany(() => Project)
-  // @JoinTable({
-  //   name: "users_projects",
-  //   joinColumn: {
-  //     name: "user",
-  //     referencedColumnName: "id",
-  //   },
-  //   inverseJoinColumn: {
-  //     name: "project",
-  //     referencedColumnName: "id",
-  //   },
-  // })
-  // tracking_projects: Project[];
+  trackingProjects: Project[];
 }

@@ -31,7 +31,7 @@ export const createController = async (req, res, next) => {
     const user = await userRepo.findOne({
       where: { id: tokenFromDb.user.id },
       relations: {
-        tracking_projects: true,
+        trackingProjects: true,
       },
     });
 
@@ -39,7 +39,7 @@ export const createController = async (req, res, next) => {
       title,
       description,
       closed,
-      created_by: user,
+      createdBy: user,
     });
 
     await db.manager.save(project);
@@ -49,7 +49,7 @@ export const createController = async (req, res, next) => {
         id: In([...usersToGiveAccessTo]),
       },
       relations: {
-        tracking_projects: true,
+        trackingProjects: true,
       },
     });
 
@@ -58,7 +58,7 @@ export const createController = async (req, res, next) => {
       .concat(user);
 
     allViewers.forEach(async (viewer) => {
-      viewer.tracking_projects = [...(viewer.tracking_projects || []), project];
+      viewer.trackingProjects = [...(viewer.trackingProjects || []), project];
       await db.manager.save(viewer);
     });
 

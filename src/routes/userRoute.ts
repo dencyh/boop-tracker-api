@@ -15,8 +15,8 @@ userRouter.route("/users").get(authMiddleware, getUsers);
 userRouter
   .route("/signup")
   .post(
-    body("first_name", "Cannot be empty").notEmpty(),
-    body("last_name", "Cannot be empty").notEmpty(),
+    body("firstName", "Cannot be empty").notEmpty(),
+    body("lastName", "Cannot be empty").notEmpty(),
     body("email", "Must be an email").isEmail(),
     body("password", "Must be at least 6 symbols").isLength({ min: 6 }),
     signUp

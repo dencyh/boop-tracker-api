@@ -21,13 +21,13 @@ export const getTrackingProjects = async (req, res, next) => {
         id: tokenFromDb.user.id,
       },
       relations: {
-        tracking_projects: true,
+        trackingProjects: true,
       },
     });
 
     console.log(user);
 
-    const projectIds = user.tracking_projects.map((project) => project.id);
+    const projectIds = user.trackingProjects.map((project) => project.id);
 
     const projectRepo = db.manager.getRepository(Project);
     const projectsWithBugs = await projectRepo.find({

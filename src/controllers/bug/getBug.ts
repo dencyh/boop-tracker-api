@@ -21,8 +21,8 @@ export const getBug = async (req, res, next) => {
       },
       relations: {
         project: true,
-        assigned_to: true,
-        created_by: true,
+        assignedTo: true,
+        createdBy: true,
         comments: {
           user: true,
         },

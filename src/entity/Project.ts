@@ -27,14 +27,14 @@ export class Project {
   closed: boolean;
 
   @CreateDateColumn()
-  created_at: Date;
+  createdAt: Date;
 
   @UpdateDateColumn()
-  updated_at: Date;
+  updatedAt: Date;
 
   @OneToMany(() => Bug, (bug) => bug.project)
   bugs: Bug[];
 
-  @ManyToOne(() => User, (user) => user.created_projects)
-  created_by: User;
+  @ManyToOne(() => User, (user) => user.createdProjects)
+  createdBy: User;
 }

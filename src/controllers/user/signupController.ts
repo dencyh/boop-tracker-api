@@ -17,7 +17,7 @@ export const signUp = async (req, res, next) => {
       return next(ApiError.BadRequest("Validation error", errors.array()));
     }
 
-    const { first_name, last_name, email, password } = req.body;
+    const { firstName, lastName, email, password } = req.body;
 
     const userExists = await db.manager.findOneBy(User, {
       email,
@@ -31,10 +31,10 @@ export const signUp = async (req, res, next) => {
 
     user.email = email;
     user.password = bcrypt.hashSync(password, 5);
-    user.first_name = first_name;
-    user.last_name = last_name;
+    user.firstName = firstName;
+    user.lastName = lastName;
 
-    user.confirmation_link = uuid();
+    user.confirmationLink = uuid();
 
     const newUser = await db.manager.save(user);
     await sendConfirmationEmail(newUser);

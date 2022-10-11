@@ -24,7 +24,7 @@ export const createBug = async (req, res, next) => {
       status,
       priority,
       due,
-      assigned_to,
+      assignedTo,
       project_id,
     } = req.body;
 
@@ -46,10 +46,10 @@ export const createBug = async (req, res, next) => {
 
     const usersToAssign = await userRepo.find({
       where: {
-        id: In([...assigned_to]),
+        id: In([...assignedTo]),
       },
       relations: {
-        tracking_projects: true,
+        trackingProjects: true,
       },
     });
 
@@ -59,8 +59,8 @@ export const createBug = async (req, res, next) => {
       status,
       priority,
       due,
-      assigned_to: usersToAssign,
-      created_by: reporter,
+      assignedTo: usersToAssign,
+      createdBy: reporter,
       project: relatedProject,
     });
 
@@ -71,7 +71,7 @@ export const createBug = async (req, res, next) => {
     //   .concat(user);
 
     // allViewers.forEach(async (viewer) => {
-    //   viewer.tracking_projects = [...(viewer.tracking_projects || []), project];
+    //   viewer.trackingProjects = [...(viewer.trackingProjects || []), project];
     //   await db.manager.save(viewer);
     // });
 

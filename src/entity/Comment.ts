@@ -19,10 +19,10 @@ export class Comment {
   text: string;
 
   @CreateDateColumn()
-  created_at: Date;
+  createdAt: Date;
 
   @UpdateDateColumn()
-  updated_at: Date;
+  updatedAt: Date;
 
   @ManyToOne(() => User, (user) => user.comments)
   @JoinColumn()
