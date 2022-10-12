@@ -35,6 +35,7 @@ export const getTrackingProjects = async (req, res, next) => {
       relations: {
         bugs: {
           createdBy: true,
+          comments: true,
         },
       },
     });
