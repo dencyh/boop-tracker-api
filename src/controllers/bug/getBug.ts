@@ -25,6 +25,12 @@ export const getBug = async (req, res, next) => {
         createdBy: true,
         comments: {
           user: true,
+          parent: true,
+        },
+      },
+      order: {
+        comments: {
+          createdAt: "ASC",
         },
       },
     });

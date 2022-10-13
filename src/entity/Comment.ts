@@ -8,6 +8,8 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
+  OneToOne,
+  OneToMany,
 } from "typeorm";
 
 @Entity()
@@ -31,4 +33,10 @@ export class Comment {
   @ManyToOne(() => Bug, (bug) => bug.comments)
   @JoinColumn()
   bug: Bug;
+
+  @ManyToOne(() => Comment, (comment) => comment.children)
+  parent: Comment;
+
+  @OneToMany(() => Comment, (comment) => comment.parent)
+  children: Comment[];
 }
