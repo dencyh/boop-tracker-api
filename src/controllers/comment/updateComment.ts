@@ -1,12 +1,11 @@
-import { Comment } from "./../../entity/Comment";
-import { Bug } from "./../../entity/Bug";
-import { db } from "../../data-source";
-import { User } from "../../entity/User";
 import { ApiError } from "./../../errros/ApiError";
+import { Comment } from "./../../entity/Comment";
+import { db } from "../../data-source";
 
-export const getComment = async (req, res, next) => {
+export const updateComment = async (req, res, next) => {
   try {
     const { id } = req.params;
+    const { text, userId } = req.body;
 
     const commentRepo = db.getRepository(Comment);
     const comment = await commentRepo.findOne({
@@ -14,9 +13,17 @@ export const getComment = async (req, res, next) => {
         id,
       },
       relations: {
-        parent: true,
+        user: true,
       },
     });
+
+    if (comment.user.id !== userId) {
+      throw ApiError.BadRequest("You are not authorized to edit this comment");
+    }
+
+    comment.text = text;
+
+    await db.manager.save(comment);
 
     res.json({ comment });
   } catch (e) {
