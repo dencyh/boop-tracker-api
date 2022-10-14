@@ -6,8 +6,10 @@ import {
   UpdateDateColumn,
   OneToMany,
   ManyToOne,
+  JoinColumn,
 } from "typeorm";
 import { Bug } from "./Bug";
+import { Stage } from "./Stage";
 import { User } from "./User";
 
 @Entity()
@@ -39,6 +41,9 @@ export class Project {
 
   @OneToMany(() => Bug, (bug) => bug.project)
   bugs: Bug[];
+
+  @OneToMany(() => Stage, (stage) => stage.project)
+  stages: Stage[];
 
   @ManyToOne(() => User, (user) => user.createdProjects)
   createdBy: User;

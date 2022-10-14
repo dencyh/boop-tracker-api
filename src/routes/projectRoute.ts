@@ -1,3 +1,4 @@
+import { createStage } from "./../controllers/project/createStage";
 import { getTrackingProjects } from "../controllers/project/getTrackingProjectsController";
 import express from "express";
 import { createController } from "../controllers/project/createProject";
@@ -7,3 +8,4 @@ export const projectRouter = express.Router();
 
 projectRouter.route("/projects").post(authMiddleware, createController);
 projectRouter.route("/projects").get(authMiddleware, getTrackingProjects);
+projectRouter.route("/projects/stages").post(authMiddleware, createStage);

@@ -1,11 +1,22 @@
 import { ApiError } from "./../../errros/ApiError";
 import { Comment } from "./../../entity/Comment";
 import { db } from "../../data-source";
+import { Token } from "../../entity/Token";
 
 export const updateComment = async (req, res, next) => {
   try {
+    const { refreshToken } = req.cookies;
     const { id } = req.params;
-    const { text, userId } = req.body;
+    const { text } = req.body;
+
+    const tokenRepo = db.getRepository(Token);
+    const token = await tokenRepo.findOne({
+      where: { refreshToken },
+      relations: {
+        user: true,
+      },
+    });
+    const user = token.user;
 
     const commentRepo = db.getRepository(Comment);
     const comment = await commentRepo.findOne({
@@ -17,7 +28,7 @@ export const updateComment = async (req, res, next) => {
       },
     });
 
-    if (comment.user.id !== userId) {
+    if (comment.user.id !== user.id) {
       throw ApiError.BadRequest("You are not authorized to edit this comment");
     }
 

@@ -1,3 +1,4 @@
+import { Stage } from "./entity/Stage";
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 
@@ -16,7 +17,7 @@ export const db = new DataSource({
   database: process.env.PGDATABASE,
   synchronize: true,
   logging: false,
-  entities: [User, Bug, Project, Comment, Token],
+  entities: [User, Bug, Project, Comment, Token, Stage],
   migrations: [],
   subscribers: [],
 });
