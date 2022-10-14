@@ -21,6 +21,7 @@ export const createController = async (req, res, next) => {
       title,
       description,
       closed,
+      deadline,
       viewers: usersToGiveAccessTo,
     } = req.body;
 
@@ -39,6 +40,7 @@ export const createController = async (req, res, next) => {
       title,
       description,
       closed,
+      deadline,
       createdBy: user,
     });
 

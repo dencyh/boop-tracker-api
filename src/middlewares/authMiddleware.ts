@@ -24,7 +24,7 @@ export const authMiddleware = async (req, res, next) => {
       return next(ApiError.UnauthorizedError());
     }
   } catch (e) {
-    console.log(e);
+    console.error(e);
     next(ApiError.UnauthorizedError());
   }
 };

@@ -9,7 +9,7 @@ export const signOut = async (req, res, next) => {
     res.clearCookie("refreshToken");
     return res.json(token);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     next(err);
   }
 };

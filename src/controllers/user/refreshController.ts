@@ -31,7 +31,7 @@ export const refresh = async (req, res, next) => {
     });
     res.json({ tokens, user });
   } catch (e) {
-    console.log(e);
+    console.error(e);
     next(e);
   }
 };

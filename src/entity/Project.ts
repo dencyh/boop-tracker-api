@@ -22,6 +22,11 @@ export class Project {
   description: string;
 
   @Column({
+    default: new Date(Date.now()),
+  })
+  deadline: Date;
+
+  @Column({
     default: false,
   })
   closed: boolean;

@@ -1,7 +1,7 @@
 import { ApiError } from "../errros/ApiError";
 
 export function errorHandler(err, req, res, next) {
-  console.log(err);
+  console.error(err);
 
   if (err instanceof ApiError) {
     return res

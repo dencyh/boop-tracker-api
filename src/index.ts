@@ -40,7 +40,7 @@ const main = async () => {
       console.log(`Server is running on port: ${PORT}`);
     });
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 

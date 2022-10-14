@@ -6,8 +6,7 @@ import { ApiError } from "./../../errros/ApiError";
 
 export const postComment = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const { text, userId, parentId } = req.body;
+    const { text, userId, bugId, parentId } = req.body;
     const userRepo = db.getRepository(User);
     const user = await userRepo.findOne({
       where: { id: userId },
@@ -15,7 +14,7 @@ export const postComment = async (req, res, next) => {
 
     const bugRepo = db.getRepository(Bug);
     const bug = await bugRepo.findOne({
-      where: { id },
+      where: { id: bugId },
     });
 
     const comment = db.manager.create(Comment, {
