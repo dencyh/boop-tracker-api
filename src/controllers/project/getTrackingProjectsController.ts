@@ -37,6 +37,12 @@ export const getTrackingProjects = async (req, res, next) => {
           createdBy: true,
           comments: true,
         },
+        stages: {
+          next: true,
+        },
+      },
+      order: {
+        createdAt: "ASC",
       },
     });
 
