@@ -1,8 +1,8 @@
-import { Stage } from "./../../entity/Stage";
-import { db } from "../../data-source";
-import { Token } from "../../entity/Token";
-import { User } from "../../entity/User";
-import { ApiError } from "../../errros/ApiError";
+import { Stage } from "../../../entity/Stage";
+import { db } from "../../../data-source";
+import { Token } from "../../../entity/Token";
+import { User } from "../../../entity/User";
+import { ApiError } from "../../../errros/ApiError";
 
 export const createStage = async (req, res, next) => {
   try {
@@ -90,29 +90,7 @@ export const createStage = async (req, res, next) => {
     console.log(beforeNext?.id, "beforeNext");
     console.log("#".repeat(40));
 
-    // const prevStage = allStages.find((prev) => prev.next.id === nextId);
-
     res.json({ prevLast, currentStage, nextStage });
-    // currentStage.next = nextStage;
-    // await db.manager.save(currentStage);
-    // const prevStages = await stageRepo.find({
-    //   relations: {
-    //     next: true,
-    //   },
-    // });
-    // const prevStage = nextStage?.next?.id
-    //   ? prevStages.find((stage) => stage.next?.id === nextId)
-    //   : prevStages.find(
-    //       (stage) => stage.next === null || stage.next?.id === nextId
-    //     );
-
-    // if (Boolean(prevStage?.id)) {
-    //   prevStage.next = currentStage;
-    //   await db.manager.save(prevStage);
-    // }
-
-    // currentStage.next = nextStage;
-    // await db.manager.save(currentStage);
   } catch (e) {
     next(e);
   }
