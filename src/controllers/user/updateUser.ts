@@ -42,7 +42,7 @@ export const updateUser = async (req, res, next) => {
     }
 
     const oldPassword = bcrypt.compareSync(password, user.password);
-    if (oldPassword !== password) {
+    if (oldPassword !== password && password) {
       user.password = bcrypt.hashSync(password, 5);
     }
 
