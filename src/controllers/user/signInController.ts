@@ -39,7 +39,7 @@ export const signIn = async (req, res, next) => {
       httpOnly: true,
     });
 
-    return res.json({ tokens, userFromDb });
+    return res.json({ tokens, user: userFromDb });
   } catch (err) {
     next(err);
   }
