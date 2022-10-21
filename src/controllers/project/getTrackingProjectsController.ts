@@ -39,6 +39,7 @@ export const getTrackingProjects = async (req, res, next) => {
         },
         stages: {
           next: true,
+          project: true,
         },
       },
       order: {

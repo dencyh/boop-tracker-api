@@ -1,8 +1,8 @@
-import { Stage } from "../../../entity/Stage";
-import { db } from "../../../data-source";
-import { Token } from "../../../entity/Token";
-import { User } from "../../../entity/User";
-import { ApiError } from "../../../errros/ApiError";
+import { Stage } from "../../entity/Stage";
+import { db } from "../../data-source";
+import { Token } from "../../entity/Token";
+import { User } from "../../entity/User";
+import { ApiError } from "../../errros/ApiError";
 
 export const createStage = async (req, res, next) => {
   try {
@@ -84,11 +84,11 @@ export const createStage = async (req, res, next) => {
       await stageRepo.save(prevLast);
     }
 
-    console.log(nextStage?.id, "nextStage");
-    console.log(prevLast?.id, "prevLast");
-    console.log(currentStage?.id, "currentStage");
-    console.log(beforeNext?.id, "beforeNext");
-    console.log("#".repeat(40));
+    // console.log(nextStage?.id, "nextStage");
+    // console.log(prevLast?.id, "prevLast");
+    // console.log(currentStage?.id, "currentStage");
+    // console.log(beforeNext?.id, "beforeNext");
+    // console.log("#".repeat(40));
 
     res.json({ prevLast, currentStage, nextStage });
   } catch (e) {

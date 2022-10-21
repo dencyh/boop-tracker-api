@@ -1,8 +1,8 @@
-import { Stage } from "../../../entity/Stage";
-import { db } from "../../../data-source";
-import { Token } from "../../../entity/Token";
-import { User } from "../../../entity/User";
-import { ApiError } from "../../../errros/ApiError";
+import { Stage } from "../../entity/Stage";
+import { db } from "../../data-source";
+import { Token } from "../../entity/Token";
+import { User } from "../../entity/User";
+import { ApiError } from "../../errros/ApiError";
 
 export const updateStage = async (req, res, next) => {
   try {
