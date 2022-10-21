@@ -36,7 +36,7 @@ export const getBug = async (req, res, next) => {
     });
 
     if (!bug) {
-      throw ApiError.BadRequest("not found");
+      throw ApiError.BadRequest("bug not found");
     }
 
     res.send(bug);

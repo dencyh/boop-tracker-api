@@ -13,7 +13,7 @@ export const updateBug = async (req, res, next) => {
     const bug = await db.manager.findOneBy(Bug, { id });
 
     if (bug[field] === undefined) {
-      throw ApiError.BadRequest("field not found");
+      throw ApiError.BadRequest("bug field not found");
     }
 
     bug[field] = newValue;
