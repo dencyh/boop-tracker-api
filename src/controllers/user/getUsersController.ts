@@ -7,7 +7,7 @@ export const getUsers = async (req, res, next) => {
     const userRepo = db.getRepository(User);
     const users = await userRepo.find({
       relations: {
-        createdProjects: true,
+        trackingProjects: true,
       },
     });
     res.json(users);
