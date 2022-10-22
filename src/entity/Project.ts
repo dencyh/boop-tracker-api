@@ -45,6 +45,8 @@ export class Project {
   @OneToMany(() => Stage, (stage) => stage.project)
   stages: Stage[];
 
-  @ManyToOne(() => User, (user) => user.createdProjects)
+  @ManyToOne(() => User, (user) => user.createdProjects, {
+    onDelete: "CASCADE",
+  })
   createdBy: User;
 }

@@ -35,7 +35,9 @@ export class Stage {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @ManyToOne(() => Project, (project) => project.stages)
+  @ManyToOne(() => Project, (project) => project.stages, {
+    onDelete: "CASCADE",
+  })
   @JoinColumn()
   project: Project;
 

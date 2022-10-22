@@ -18,15 +18,8 @@ export const createBug = async (req, res, next) => {
       throw ApiError.UnauthorizedError();
     }
 
-    const {
-      title,
-      description,
-      status,
-      priority,
-      due,
-      assignedTo,
-      project_id,
-    } = req.body;
+    const { title, description, status, priority, due, assignedTo, projectId } =
+      req.body;
 
     // Get user by refreshtoken
     const tokenFromDb = await db.manager.findOneBy(Token, { refreshToken });
@@ -41,7 +34,7 @@ export const createBug = async (req, res, next) => {
 
     const projectRepo = db.getRepository(Project);
     const relatedProject = await projectRepo.findOne({
-      where: { id: project_id },
+      where: { id: projectId },
     });
 
     const usersToAssign = await userRepo.find({

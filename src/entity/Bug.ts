@@ -50,7 +50,7 @@ export class Bug {
   })
   createdBy: User;
 
-  @ManyToOne(() => Project, (project) => project.bugs)
+  @ManyToOne(() => Project, (project) => project.bugs, { onDelete: "CASCADE" })
   @JoinColumn({
     name: "project_id",
   })
