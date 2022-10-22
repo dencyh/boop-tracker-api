@@ -10,7 +10,13 @@ export const updateBug = async (req, res, next) => {
     }
     const { field, newValue } = req.body;
 
-    const bug = await db.manager.findOneBy(Bug, { id: bugId });
+    const bugRepo = db.getRepository(Bug);
+    const bug = await bugRepo.findOne({
+      where: { id: bugId },
+      relations: {
+        assignedTo: true,
+      },
+    });
 
     if (bug[field] === undefined) {
       throw ApiError.BadRequest("bug field not found");
