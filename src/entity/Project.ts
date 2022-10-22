@@ -7,6 +7,7 @@ import {
   OneToMany,
   ManyToOne,
   JoinColumn,
+  ManyToMany,
 } from "typeorm";
 import { Bug } from "./Bug";
 import { Stage } from "./Stage";
@@ -49,4 +50,7 @@ export class Project {
     onDelete: "CASCADE",
   })
   createdBy: User;
+
+  @ManyToMany(() => User, (user) => user.trackingProjects)
+  viewers: User[];
 }

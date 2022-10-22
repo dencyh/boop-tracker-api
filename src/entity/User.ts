@@ -63,7 +63,7 @@ export class User {
   @OneToMany(() => Project, (project) => project.createdBy)
   createdProjects: Project[];
 
-  @ManyToMany(() => Project)
+  @ManyToMany(() => Project, (project) => project.viewers)
   @JoinTable()
   trackingProjects: Project[];
 }

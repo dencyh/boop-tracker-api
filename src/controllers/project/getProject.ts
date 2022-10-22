@@ -16,6 +16,7 @@ export const getProject = async (req, res, next) => {
         user: {
           trackingProjects: {
             createdBy: true,
+            viewers: true,
           },
         },
       },

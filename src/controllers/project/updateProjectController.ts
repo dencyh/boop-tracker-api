@@ -17,6 +17,7 @@ export const updateProject = async (req, res, next) => {
         user: {
           trackingProjects: {
             createdBy: true,
+            viewers: true,
           },
         },
       },
@@ -27,8 +28,18 @@ export const updateProject = async (req, res, next) => {
       return project.id === Number(projectId);
     });
 
+    // const projectWithViewers = await db
+    //   .getRepository(Project)
+    //   .createQueryBuilder("project")
+    //   .leftJoinAndSelect("project.viewers", "viewer")
+    //   .getMany();
+
     if (!project) {
       throw ApiError.BadRequest("user do not have access to this project");
+    }
+
+    if (project[option] === undefined) {
+      throw ApiError.BadRequest("wrong project field");
     }
 
     project[option] = newValue;
