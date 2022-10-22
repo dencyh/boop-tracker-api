@@ -9,15 +9,15 @@ import { ApiError } from "../../errros/ApiError";
 
 export const getBug = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    if (!id) {
+    const { bugId } = req.params;
+    if (!bugId) {
       throw ApiError.BadRequest("wrong id");
     }
 
     const bugRepo = db.getRepository(Bug);
     const bug = await bugRepo.findOne({
       where: {
-        id,
+        id: bugId,
       },
       relations: {
         project: true,

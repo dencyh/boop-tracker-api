@@ -4,13 +4,13 @@ import { ApiError } from "../../errros/ApiError";
 
 export const updateBug = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    if (!id) {
-      throw ApiError.BadRequest("wrong bug id");
+    const { bugId } = req.params;
+    if (!bugId) {
+      throw ApiError.BadRequest("wrong bug bugId");
     }
     const { field, newValue } = req.body;
 
-    const bug = await db.manager.findOneBy(Bug, { id });
+    const bug = await db.manager.findOneBy(Bug, { id: bugId });
 
     if (bug[field] === undefined) {
       throw ApiError.BadRequest("bug field not found");
