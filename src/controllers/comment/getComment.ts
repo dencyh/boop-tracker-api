@@ -1,8 +1,5 @@
 import { Comment } from "./../../entity/Comment";
-import { Bug } from "./../../entity/Bug";
 import { db } from "../../data-source";
-import { User } from "../../entity/User";
-import { ApiError } from "./../../errros/ApiError";
 
 export const getComment = async (req, res, next) => {
   try {

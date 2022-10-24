@@ -1,7 +1,5 @@
-import { Stage } from "../../entity/Stage";
 import { db } from "../../data-source";
 import { Token } from "../../entity/Token";
-import { User } from "../../entity/User";
 import { ApiError } from "../../errros/ApiError";
 
 export const getProject = async (req, res, next) => {

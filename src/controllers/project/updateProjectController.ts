@@ -1,6 +1,4 @@
-import { IProject } from "./../../../../boop-tracker-client/src/models/IProject";
 import { db } from "../../data-source";
-import { Project } from "../../entity/Project";
 import { Token } from "../../entity/Token";
 import { ApiError } from "../../errros/ApiError";
 
@@ -27,12 +25,6 @@ export const updateProject = async (req, res, next) => {
     const project = user.trackingProjects.find((project) => {
       return project.id === Number(projectId);
     });
-
-    // const projectWithViewers = await db
-    //   .getRepository(Project)
-    //   .createQueryBuilder("project")
-    //   .leftJoinAndSelect("project.viewers", "viewer")
-    //   .getMany();
 
     if (!project) {
       throw ApiError.BadRequest("user do not have access to this project");

@@ -1,4 +1,3 @@
-import { API_URL } from "./../../../boop-tracker-client/src/http/index";
 const nodemailer = require("nodemailer");
 
 const sendConfirmationEmail = async (user) => {
@@ -12,7 +11,6 @@ const sendConfirmationEmail = async (user) => {
     },
   });
 
-  // send mail with defined transport object
   let info = await transporter.sendMail({
     from: '"Boop Tracker" <foo@example.com>',
     to: user.email, // list of receivers
@@ -22,14 +20,11 @@ const sendConfirmationEmail = async (user) => {
   });
 
   console.log("Message sent: %s", info.messageId);
-  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 
   // Preview only available when sending through an Ethereal account
   console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-  // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
 };
 
-// sendConfirmationEmail({email: 'a.dencyh@gmail.com', firstName: "Alexander", lastName: "Moryan", confirmationLink: "123"});
 module.exports = {
   sendConfirmationEmail,
 };

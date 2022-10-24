@@ -1,6 +1,5 @@
 import { db } from "../../data-source";
 import { Bug } from "../../entity/Bug";
-import { Project } from "../../entity/Project";
 import { Token } from "../../entity/Token";
 import { ApiError } from "../../errros/ApiError";
 

@@ -59,15 +59,6 @@ export const createBug = async (req, res, next) => {
 
     await db.manager.save(bug);
 
-    // const allViewers = newViewers
-    //   .filter((viewer: User) => viewer.id !== user.id)
-    //   .concat(user);
-
-    // allViewers.forEach(async (viewer) => {
-    //   viewer.trackingProjects = [...(viewer.trackingProjects || []), project];
-    //   await db.manager.save(viewer);
-    // });
-
     res.json({ bug });
   } catch (e) {
     next(e);

@@ -84,12 +84,6 @@ export const createStage = async (req, res, next) => {
       await stageRepo.save(prevLast);
     }
 
-    // console.log(nextStage?.id, "nextStage");
-    // console.log(prevLast?.id, "prevLast");
-    // console.log(currentStage?.id, "currentStage");
-    // console.log(beforeNext?.id, "beforeNext");
-    // console.log("#".repeat(40));
-
     res.json({ prevLast, currentStage, nextStage });
   } catch (e) {
     next(e);

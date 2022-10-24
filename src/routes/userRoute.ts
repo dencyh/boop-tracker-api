@@ -5,7 +5,7 @@ import { body, check } from "express-validator";
 import { emailController } from "../controllers/user/emailController";
 import { signIn } from "../controllers/user/signInController";
 import { signOut } from "../controllers/user/signOutController";
-import { signUp } from "../controllers/user/signUpController";
+import { signUp } from "../controllers/user/signupController";
 import { refresh } from "../controllers/user/refreshController";
 import { authMiddleware } from "../middlewares/authMiddleware";
 import { getUsers } from "./../controllers/user/getUsersController";

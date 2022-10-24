@@ -18,7 +18,6 @@ export const saveToken = async (user: User, refreshToken: string) => {
   });
   if (tokenFound) {
     await db.manager.update(Token, tokenFound.id, { refreshToken });
-    // tokenFound.refreshToken = refreshToken;
     return;
   }
   const token = new Token();

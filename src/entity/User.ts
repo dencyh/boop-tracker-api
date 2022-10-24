@@ -9,10 +9,7 @@ import {
   UpdateDateColumn,
   OneToMany,
   ManyToMany,
-  JoinColumn,
   JoinTable,
-  OneToOne,
-  ManyToOne,
 } from "typeorm";
 import { IsEmail, Length } from "class-validator";
 import { Token } from "./Token";

@@ -1,10 +1,5 @@
 import { Bug } from "../../entity/Bug";
-import jwt from "jsonwebtoken";
-import { In } from "typeorm";
 import { db } from "../../data-source";
-import { Project } from "../../entity/Project";
-import { Token } from "../../entity/Token";
-import { User } from "../../entity/User";
 import { ApiError } from "../../errros/ApiError";
 
 export const getBug = async (req, res, next) => {
