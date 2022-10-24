@@ -51,6 +51,8 @@ export class Project {
   })
   createdBy: User;
 
-  @ManyToMany(() => User, (user) => user.trackingProjects)
+  @ManyToMany(() => User, (user) => user.trackingProjects, {
+    onDelete: "CASCADE",
+  })
   viewers: User[];
 }

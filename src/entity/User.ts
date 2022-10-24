@@ -63,7 +63,9 @@ export class User {
   @OneToMany(() => Project, (project) => project.createdBy)
   createdProjects: Project[];
 
-  @ManyToMany(() => Project, (project) => project.viewers)
+  @ManyToMany(() => Project, (project) => project.viewers, {
+    onDelete: "CASCADE",
+  })
   @JoinTable()
   trackingProjects: Project[];
 }
