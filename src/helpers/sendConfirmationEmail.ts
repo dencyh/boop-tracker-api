@@ -1,3 +1,4 @@
+import { API_URL } from "./../../../boop-tracker-client/src/http/index";
 const nodemailer = require("nodemailer");
 
 const sendConfirmationEmail = async (user) => {
@@ -17,7 +18,7 @@ const sendConfirmationEmail = async (user) => {
     to: user.email, // list of receivers
     subject: "Email confirmation", // Subject line
     text: "", // plain text body
-    html: `<div style="text-align: center; background: #222222; color:#e4e4e4; padding: 40px"><div style="margin:0 auto; max-width: 500px; padding:30px;border-radius: 15px; background: #333333"><h3>Welcome to Boop Tracker🚀, ${user.firstName} ${user.lastName}!</h3><h3 style="font-weight: normal" ><a style="color: #00a286" href='http://localhost:5000/api/confirm/${user.confirmationLink}'>Click here to confirm your e-mail address!</a></h3></div></div>`, // html body
+    html: `<div style="text-align: center; background: #222222; color:#e4e4e4; padding: 40px"><div style="margin:0 auto; max-width: 500px; padding:30px;border-radius: 15px; background: #333333"><h3>Welcome to Boop Tracker🚀, ${user.firstName} ${user.lastName}!</h3><h3 style="font-weight: normal" ><a style="color: #00a286" href='${process.env.API_URL}/api/confirm/${user.confirmationLink}'>Click here to confirm your e-mail address!</a></h3></div></div>`, // html body
   });
 
   console.log("Message sent: %s", info.messageId);
