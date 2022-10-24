@@ -36,6 +36,7 @@ export const getTrackingProjects = async (req, res, next) => {
         createdBy: true,
         bugs: {
           createdBy: true,
+          assignedTo: true,
           comments: true,
         },
         stages: {

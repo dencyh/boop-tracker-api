@@ -8,7 +8,6 @@ export const updateStage = async (req, res, next) => {
   try {
     const { refreshToken } = req.cookies;
     const { stageId } = req.params;
-    console.log(typeof stageId);
     const {
       text,
       projectId,

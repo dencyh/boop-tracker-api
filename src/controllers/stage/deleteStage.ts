@@ -8,7 +8,6 @@ export const deleteStage = async (req, res, next) => {
   try {
     const { refreshToken } = req.cookies;
     const { stageId } = req.params;
-    console.log(stageId);
 
     const tokenRepo = db.getRepository(Token);
     const token = await tokenRepo.findOne({
