@@ -30,6 +30,8 @@ const main = async () => {
       })
     );
 
+    app.set("trust proxy", 1);
+
     app.use("/api", userRouter);
     app.use("/api", projectRouter);
     app.use("/api", bugRouter);
