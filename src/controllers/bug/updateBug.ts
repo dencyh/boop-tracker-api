@@ -8,7 +8,7 @@ export const updateBug = async (req, res, next) => {
     if (!bugId) {
       throw ApiError.BadRequest("wrong bug bugId");
     }
-    const { field, newValue } = req.body;
+    const { key, newValue } = req.body;
 
     const bugRepo = db.getRepository(Bug);
     const bug = await bugRepo.findOne({
@@ -18,11 +18,11 @@ export const updateBug = async (req, res, next) => {
       },
     });
 
-    if (bug[field] === undefined) {
-      throw ApiError.BadRequest("bug field not found");
+    if (bug[key] === undefined) {
+      throw ApiError.BadRequest("bug key not found");
     }
 
-    bug[field] = newValue;
+    bug[key] = newValue;
 
     await db.manager.save(bug);
 

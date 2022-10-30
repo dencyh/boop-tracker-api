@@ -6,7 +6,7 @@ export const updateProject = async (req, res, next) => {
   try {
     const { refreshToken } = req.cookies;
     const { projectId } = req.params;
-    const { option, newValue } = req.body;
+    const { key, newValue } = req.body;
 
     const tokenRepo = db.getRepository(Token);
     const token = await tokenRepo.findOne({
@@ -30,11 +30,11 @@ export const updateProject = async (req, res, next) => {
       throw ApiError.BadRequest("user do not have access to this project");
     }
 
-    if (project[option] === undefined) {
+    if (project[key] === undefined) {
       throw ApiError.BadRequest("wrong project field");
     }
 
-    project[option] = newValue;
+    project[key] = newValue;
     await db.manager.save(project);
 
     res.json(project);
