@@ -28,6 +28,12 @@ export const updateUser = async (req, res, next) => {
       throw ApiError.BadRequest("user not found");
     }
 
+    if (user.email === "ljmfvd@gmail.com") {
+      throw ApiError.BadRequest(
+        "You cannot change test user details. Create an account if you want to use this functionality"
+      );
+    }
+
     const emailChanged = user.email !== email;
     if (emailChanged) {
       const usersWithEmail = await db.manager.findOneBy(User, {
@@ -42,7 +48,11 @@ export const updateUser = async (req, res, next) => {
     }
 
     const oldPassword = bcrypt.compareSync(password, user.password);
-    if (oldPassword !== password && password) {
+    if (
+      oldPassword !== password &&
+      password &&
+      user.email !== "ljmfvd@gmail.com"
+    ) {
       user.password = bcrypt.hashSync(password, 5);
     }
 
